@@ -3,7 +3,7 @@ import ErrorPage from "../views/ErrorPage";
 import StartPage from "../pages/StartPage";
 import RegisterPage from "../pages/RegisterPage"
 import LoginPage from "../pages/LoginPage";
-import NavHeader from "../layout/NavHeader";
+import NavHeader from "../layouts/NavHeader";
 import Inicio from "../pages/Inicio";
 import Historial from "../pages/Historial";
 import Perfil from "../pages/Perfil";
