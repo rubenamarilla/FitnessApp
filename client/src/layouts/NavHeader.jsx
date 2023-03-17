@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import SpaIcon from "@mui/icons-material/Spa";
+import { CssBaseline } from "@mui/material";
 
 const pages = ["Inicio", "Historial"];
 const settings = ["Perfil", "Cerrar Sesión"];
@@ -48,8 +49,9 @@ const NavHeader = () => {
     }
   };
   return (
-    <div>
-      <AppBar position="static">
+    <>
+      <CssBaseline />
+      <AppBar position="static" sx={{mb: "1rem"}}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <SpaIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -171,7 +173,7 @@ const NavHeader = () => {
         </Container>
       </AppBar>
       <Outlet />
-    </div>
+    </>
   );
 };
 
