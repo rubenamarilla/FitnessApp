@@ -45,11 +45,11 @@ const Historial = () => {
       <CssBaseline />
       <Grid
         container
-        minWidth="xl"
+        maxWidth="xl"
         minHeight="md"
 
         direction="column"
-        sx={{ bgcolor: "gray", pt: "1rem", paddingBottom: "1rem", padding: "1rem" }}
+        sx={{ bgcolor: "#f6f6f6", pt: "1rem", paddingBottom: "1rem", padding: "1rem" }}
       >
         {historial.map((usuario, idx) => (
           <Grid
@@ -57,7 +57,7 @@ const Historial = () => {
             item
             alignItems={"center"}
             xs={12}
-            sx={{ bgcolor: "whitesmoke", marginBottom: "1rem", padding: "0.5rem" }}
+            sx={{ bgcolor: "white", marginBottom: "1rem", padding: "0.5rem", boxShadow: "-2px 3px 8px -5px black" }}
           >
             <Grid item xs={4}>
               <Typography component="h5" variant="h5">
