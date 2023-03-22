@@ -4,6 +4,9 @@ import { Grid, Typography } from "@mui/material";
 
 const Inicio = () => {
   const dias = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sáb", "Dom"];
+  // poner botones columna dos agregar actividad
+  // grafico
+  
   return (
     <>
       <CssBaseline />
