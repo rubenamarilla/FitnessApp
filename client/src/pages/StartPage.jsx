@@ -12,7 +12,7 @@ const StartPage = () => {
       <Grid container xs={12} direction={"row"} alignItems="center" sx={{ height: "100vh", width: "100vw", bgcolor: "whitesmoke" }}>
 
         <Grid item xs={6} sx={{p: 8}}>
-          <Typography component="body1" variant="body1" align='justifyj'>FitnessApp es una herramienta completa para que los usuarios puedan hacer seguimiento de sus actividades deportivas y llevar un control de su progreso. Los usuarios pueden registrarse e iniciar sesión para acceder a su perfil personalizado, donde pueden guardar sus actividades deportivas, ver su historial de entrenamientos, visualizar su progreso a través de estadísticas como los pasos dados y las calorías quemadas, y también establecer objetivos de entrenamiento para seguir motivados.</Typography>
+          <Typography component="body1" variant="body1" align='justify'>FitnessApp es una herramienta completa para que los usuarios puedan hacer seguimiento de sus actividades deportivas y llevar un control de su progreso. Los usuarios pueden registrarse e iniciar sesión para acceder a su perfil personalizado, donde pueden guardar sus actividades deportivas, ver su historial de entrenamientos, visualizar su progreso a través de estadísticas como los pasos dados y las calorías quemadas, y también establecer objetivos de entrenamiento para seguir motivados.</Typography>
         </Grid>
 
         <Grid item xs={6} >
