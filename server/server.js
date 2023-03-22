@@ -1,27 +1,19 @@
-require('dotenv').config()
-const cookieParser = require('cookie-parser');
-const express = require("express");
-const cors = require("cors");
-const app = express();
-const port = 8000;
-require('./config/fitness.config');
-app.use(
-    cors({
-        credentials: true,
-        origin: "http://localhost:3000"
-    })
-)
+const express = require('express')
+const dotenv = require('dotenv').config()
+const {errorHandler} = require('./middleware/errorMiddleware')
+const connectDB = require('./config/fitness.config')
+const port = process.env.PORT || 8000
 
-// app.use(cors());
 
-//Cookies
-app.use(cookieParser());
+const app = express()
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false}))
 
-require('./routes/fitness.routes')(app);
+//llamamos a las rutas
+app.use('/api/fitness', require('./routes/fitness.routes'))
+app.use('/api/users', require('./routes/user.routes'))
 
-app.listen(port, () => {
-    console.log("Listening at Port 8000")
-})
+app.use(errorHandler)
+
+app.listen(port, () => console.log(`Server started on port ${port}`))
