@@ -1,87 +1,128 @@
-import React from "react";
-import {  CssBaseline, Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { CssBaseline, Grid, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 const Historial = () => {
-  const historial = [
-    {
-      pasos: 5202,
-      calorías: 231,
-      fecha: "12/01/23",
-      hora: "12:36",
-      actividad: "correr"
-    },
-    {
-      pasos: 5202,
-      calorías: 231,
-      fecha: "12/01/23",
-      hora: "12:36",
-      actividad: "correr"
-    },
-    {
-      pasos: 5202,
-      calorías: 231,
-      fecha: "12/01/23",
-      hora: "12:36",
-      actividad: "correr"
-    },
+    const [data, setData] = useState(null);
+    const navigate = useNavigate();
 
-  ];
-  return (
-    <>
-      <CssBaseline />
-      <Grid
-        container
-        maxWidth="xl"
-        minHeight="md"
+    const historial = [
+        {
+            pasos: 5202,
+            calorías: 231,
+            fecha: "12/01/23",
+            hora: "12:36",
+        },
+        {
+            pasos: 5202,
+            calorías: 231,
+            fecha: "12/01/23",
+            hora: "12:36",
+        },
+        {
+            pasos: 5202,
+            calorías: 231,
+            fecha: "12/01/23",
+            hora: "12:36",
+        },
+        {
+            pasos: 5202,
+            calorías: 231,
+            fecha: "12/01/23",
+            hora: "12:36",
+        },
+        {
+            pasos: 5202,
+            calorías: 231,
+            fecha: "12/01/23",
+            hora: "12:36",
+        },
+        {
+            pasos: 5202,
+            calorías: 231,
+            fecha: "12/01/23",
+            hora: "12:36",
+        },
+    ];
 
-        direction="column"
-        sx={{ bgcolor: "#f6f6f6", pt: "1rem", paddingBottom: "1rem", padding: "1rem" }}
-      >
-        {historial.map((usuario, idx) => (
-          <Grid
-            container
-            item
-            alignItems={"center"}
-            xs={12}
-            sx={{ bgcolor: "white", marginBottom: "1rem", padding: "0.5rem", boxShadow: "-2px 3px 8px -5px black" }}
-          >
-            <Grid item xs={3}>
-              <Typography component="h5" variant="h5">
-                Pasos
-              </Typography>
-              <Typography component="h3" variant="h3">
-                {usuario.pasos}
-              </Typography>
+
+    const getItem = () => {
+        axios.get('http://localhost:8000/api/test')
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    useEffect(() => {
+        getItem();
+    }, []);
+    console.log(data);
+
+    const eliminar = (id) => {
+        axios.delete(`http://localhost:8000/api/test/${id}`)
+            .then(response => {
+                setData(data.filter(usuario => usuario._id !== id));
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    return (
+        <>
+            <CssBaseline />
+            <Grid
+                container
+                maxWidth="xl"
+                minHeight="md"
+
+                direction="column"
+                sx={{ bgcolor: "#f6f6f6", pt: "1rem", paddingBottom: "1rem", padding: "1rem" }}
+            >
+                {historial.map((usuario, idx) => (
+                    <Grid
+                        container
+                        item
+                        alignItems={"center"}
+                        xs={12}
+                        sx={{ bgcolor: "white", marginBottom: "1rem", padding: "0.5rem", boxShadow: "-2px 3px 8px -5px black" }}
+                    >
+                        <Grid item xs={4}>
+                            <Typography component="h5" variant="h5">
+                                Pasos
+                            </Typography>
+                            <Typography component="h3" variant="h3">
+                                {usuario.pasos}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Typography component="h5" variant="h5">
+                                Calorías
+                            </Typography>
+                            <Typography component="h3" variant="h3">
+                                {usuario.calorías}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Typography component="h3" variant="h5">
+                                {usuario.fecha}
+                            </Typography>
+                            <Typography component="h3" variant="h5">
+                                {usuario.hora}
+                            </Typography>
+                        </Grid>
+                        <Link to={`/inicio/${usuario._id}/edit`} className="text2" >Editar</Link>
+
+                        <button onClick={() => eliminar(usuario._id)} className="btn"  >Eliminar</button>
+                    </Grid>
+                ))}
             </Grid>
-            <Grid item xs={3}>
-              <Typography component="h5" variant="h5">
-                Calorías
-              </Typography>
-              <Typography component="h3" variant="h3">
-                {usuario.calorías}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography component="h5" variant="h5">
-                Actividad
-              </Typography>
-              <Typography component="h3" variant="h3">
-                {usuario.actividad}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography component="h3" variant="h5">
-                {usuario.fecha}
-              </Typography>
-              <Typography component="h3" variant="h5">
-                {usuario.hora}
-              </Typography>
-            </Grid>
-          </Grid>
-        ))}
-      </Grid>
-    </>
-  );
+        </>
+    );
 };
 
 export default Historial;
