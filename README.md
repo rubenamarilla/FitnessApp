@@ -1,7 +1,9 @@
-```
 # FitnessApp
 
-FitnessApp es una aplicación web desarrollada con el stack MERN (MongoDB, Express, React y Node.js). La aplicación permite a los usuarios guardar sus actividades deportivas, ver su historial, ver sus pasos, calorías quemadas, entre otras funcionalidades.
+FitnessApp es una aplicación web desarrollada con el stack MERN 
+(MongoDB, Express, React y Node.js). La aplicación permite a los usuarios 
+guardar sus actividades deportivas, ver su historial, 
+ver sus pasos, calorías quemadas, entre otras funcionalidades.
 
 ## Requisitos previos
 
@@ -30,7 +32,8 @@ Para poder ejecutar la aplicación de forma local, necesitas tener instalado Nod
 
 ## Uso
 
-Una vez que la aplicación esté en ejecución, podrás crear una cuenta de usuario y empezar a utilizar todas las funcionalidades de la aplicación.
+Una vez que la aplicación esté en ejecución, podrás crear una cuenta de usuario y 
+empezar a utilizar todas las funcionalidades de la aplicación.
 
 ## Contribución
 
@@ -45,4 +48,3 @@ Si deseas contribuir al proyecto, por favor sigue los siguientes pasos:
 ## Licencia
 
 FitnessApp está disponible bajo la licencia MIT. Puedes ver el archivo LICENSE para más información.
-```
