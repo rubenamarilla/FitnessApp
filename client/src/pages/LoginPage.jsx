@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Avatar, Box, Button, Container, createTheme, CssBaseline, Link, TextField, ThemeProvider, Typography } from "@mui/material"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 function Copyright(props) {
   return (
@@ -37,8 +38,13 @@ const LoginPage = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
+
     console.log(formData)
     try {
+      const response = await axios.post('http://127.0.0.1:8000/api/users/login', formData);
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+    
       navigate("/inicio")
     } catch (error) {
       console.error(error);

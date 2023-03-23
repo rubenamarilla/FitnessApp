@@ -1,122 +1,101 @@
-const Fitness = require("../models/fitness.model");
+const asyncHandler = require('express-async-handler')
 
-module.exports.index = (request, response) => {
-    response.json({
-    message: "Hello World"
-    });
-}
+const Fitness = require('../models/fitness.model')
+const User = require('../models/user.model')
 
-module.exports.createItem = (request, response) => {
-    const { nombre,peso,calorias,objetivo} = request.body;
-    Fitness.create({
-        nombre,
-        peso,
-        calorias,
-        objetivo,
-    })
-    .then(fitness => response.json(fitness))
-    .catch(err => response.json(err));
-}
+//  Traemos datos de fitness
+// ruta   GET /api/fitness/items
+// acceso  Private
+const getItems = asyncHandler(async (req, res) => {
+  const items = await Fitness.find({ user: req.user.id })
 
-module.exports.getAllItems = (request, response) => {
-    Fitness.find({})
-        .then(fitness => response.json(fitness))
-        .catch(err => response.json(err))
-}
+  res.status(200).json(items)
+})
 
-module.exports.getItem = (request, response) => {
-    Fitness.findOne({_id:request.params.id})
-        .then(fitness => response.json(fitness))
-        .catch(err => response.json(err))
-}
+// creamos datos de fitness
+// ruta   POST /api/fitness/create
+// acceso  Private
+const setItem = asyncHandler(async (req, res) => {
+ 
+  const item = await Fitness.create({
+    user: req.user.id,
+    peso: req.body.peso,
+    calorias: req.body.calorias,
+    objetivo: req.body.objetivo,
+    altura: req.body.altura,
+    pasos: req.body.pasos,
+  })
 
-module.exports.updateItem = (request, response) => {
-    Fitness.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-        .then(updatedFitness => response.json(updatedFitness))
-        .catch(err => response.json(err))
-}
-
-module.exports.deleteItem = (request, response) => {
-    Fitness.deleteOne({ _id: request.params.id })
-        .then(deleteConfirmation => response.json(deleteConfirmation))
-        .catch(err => response.json(err))
-}
-
-//crear usuario
-const Register = require("../models/fitness.model");
-const Usuario = require("../models/fitness.model");
-const jwt = require("jsonwebtoken");
-const secret_key = "Esta es mi llave secreta";
-// const jwt = require("jsonwebtoken");
-// const secret_key = "Esta es mi llave secreta";
-const bcrypt = require("bcrypt");
-module.exports.register = async (req, res) => {
-    try {
-        const { usuario, password, email } = req.body;
-        console.log(usuario, password, email)
-        if (!usuario || !password || !email) {
-            return res.status(400).json({ message: "Debe proporcionar un usuario, una contraseña y un correo electrónico" });
-        }
-
-        const existingRegister = await Register.findOne({ usuario: usuario });
-
-        if (existingRegister) {
-            return res.status(409).json({ message: 'El usuario ya existe' });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const register = new Register({
-            usuario: usuario,
-            password: hashedPassword,
-            email: email,
-        });
-
-        const result = await register.save();
-        res.status(201).json({ message: 'Usuario creado', result: result });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ error: err });
-    }
-};
+  res.status(200).json(item)
+})
 
 
 
-module.exports.login = async (req, res) => {
-    try {
-        const { usuario, password } = req.body;
 
-        if (!usuario || !password) {
-            return res.status(400).json({ message: "Debe proporcionar un usuario y una contraseña" });
-        }
+// Modificamos Item
+// ruta   PUT /api/fitness/:id
+// acceso  Private
+const updateItem = asyncHandler(async (req, res) => {
+  const item = await Fitness.findById(req.params.id)
 
-        const register = await Register.findOne({ usuario: usuario });
+  if (!item) {
+    res.status(400)
+    throw new Error('Itemn no encontrado')
+  }
 
-        if (!register) {
-            return res.status(401).json({ message: 'La autenticación falló' });
-        }
+  // Checkeamos el usuario
+  if (!req.user) {
+    res.status(401)
+    throw new Error('Usuario no encontrado')
+  }
 
-        const result = await bcrypt.compare(password, register.password);
+  // Aseguramos de que el usuario que inició sesión coincida con el usuario del elemento
+  if (item.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('Usuario no autorizado')
+  }
 
-        if (!result) {
-            return res.status(401).json({ message: 'La autenticación falló' });
-        }
+  const updateItem = await Fitness.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  })
 
-        const token = jwt.sign({ usuario: register.usuario, email: register.email }, secret_key, { expiresIn: '1h' });
-        res.status(200).json({ message: 'Autenticación exitosa', token: token });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ error: err });
-    }
-};
+  res.status(200).json(updateItem)
+})
 
-module.exports.logout = (req, res) => {
-    res.clearCookie('usertoken');
-    res.status(200).json({ message: "Salimos de sesión!" });
-}
+//     Eliminar item
+// ruta   DELETE /api/fitness/:id
+// acceso  Private
+const deleteItem = asyncHandler(async (req, res) => {
+  const item = await Fitness.findById(req.params.id)
 
-module.exports.get_all = (req, res) => {
-    Usuario.find()
-        .then(usuarios => res.json({ message: usuarios }))
-        .catch(err => res.status(400).json({ message: err }));
+  if (!item) {
+    res.status(400)
+    throw new Error('Item no encontrado')
+  }
+
+  // Checkeamos el usuario
+  if (!req.user) {
+    res.status(401)
+    throw new Error('Usuario no encontrado')
+  }
+
+// Aseguramos de que el usuario que inició sesión coincida con el usuario del elemento
+  if (item.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('Usuario no autorizado')
+  }
+
+  await Fitness.deleteOne({_id: req.params.id})
+
+  res.status(200).json({ id: req.params.id })
+})
+
+
+
+module.exports = {
+  getItems,
+  setItem,
+  updateItem,
+  deleteItem,
+
 }

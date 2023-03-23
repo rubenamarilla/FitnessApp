@@ -1,17 +1,21 @@
-const FitnessController = require('../controllers/fitness.controller');
-const {authenticate, admin} = require('../config/jwt.config');
+const express = require('express')
+const router = express.Router()
+const {
+    getItems,
+    setItem, 
+    updateItem, 
+    deleteItem,
 
-module.exports = function(app){
-    app.get('/api', FitnessController.index);
-    app.post('/api/test', FitnessController.createItem);
-    app.get('/api/test', FitnessController.getAllItems);
-    app.get('/api/test/:id', FitnessController.getItem);
-    app.put('/api/test/:id', FitnessController.updateItem);
-    app.delete('/api/test/:id', FitnessController.deleteItem);
-    app.post('/api/register', FitnessController.register);
-    app.post('/api/login', FitnessController.login);
-    app.get('/api/logout', FitnessController.logout);
-    app.get('/api/users', authenticate, FitnessController.get_all);
-    app.get('/api/users/all',admin, FitnessController.get_all);
-    app.get("/api/admin",admin,(req, res) =>{ res.status(200).json({})})
-}
+} = require('../controllers/fitness.controller')
+
+//autenticacion
+const {protect} = require('../middleware/authMiddleware')
+
+//rutas
+router.get('/items', protect,getItems)
+router.post('/create', protect, setItem)
+router.put('/:id', protect, updateItem)
+router.delete('/:id', protect, deleteItem)
+
+
+module.exports = router
