@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import SpaIcon from "@mui/icons-material/Spa";
 import { CssBaseline } from "@mui/material";
 
-const pages = ["Inicio", "Historial"];
+const pages = ["Inicio", "Historial", "Actividades"];
 const settings = ["Perfil", "Cerrar Sesión"];
 
 // estarán los botones inicio, historial y perfil
@@ -37,6 +37,8 @@ const NavHeader = () => {
       Navigate("/inicio");
     } else if (page === "Historial") {
       Navigate("/inicio/historial")
+    }else if (page === "Actividades") {
+      Navigate("/inicio/actividad");
     }
   };
 
