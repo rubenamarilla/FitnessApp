@@ -1,0 +1,20 @@
+{
+  "name": "fitnessapp",
+  "version": "1.0.0",
+  "description": "fitnessApp te permite registrar tus actividades deportivas y hacer seguimiento de las mismas",
+  "scripts": {
+    "start": "cd client && npm install && cd ../server && npm install && node server.js",
+    "client": "cd client && npm start",
+    "server": "cd server && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielamarilla/FitnessApp.git"
+  },
+  "author": "Rubén Amarilla, Mariela Jara, Walter Espinola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielamarilla/FitnessApp/issues"
+  },
+  "homepage": "https://github.com/danielamarilla/FitnessApp#readme"
+}

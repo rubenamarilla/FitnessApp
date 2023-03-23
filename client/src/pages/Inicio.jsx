@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
+import Graph from "../components/Graph";
 
 const Inicio = () => {
   const dias = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sáb", "Dom"];
-  // poner botones columna dos agregar actividad
-  // grafico
+  const [datos, setDatos] = useState({
+    pasos: 1200,
+    objetivoPasos: 8000,
+    calorías: 500,
+    objetivoCalorías: 1200
+  })
   
+
   return (
     <>
       <CssBaseline />
@@ -27,13 +33,13 @@ const Inicio = () => {
           direction="column"
           xs={6}
           alignItems="center"
-          justifyContent="space-evenly"
+          justifyContent="space-around"
           maxWidth="lg"
           minHeight="80vh"
           sx={{
             bgcolor: "#e8eaf6",
             borderRadius: "3px",
-            boxShadow: "-2px 3px 8px -5px black",
+            boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
           }}
         >
           <Grid
@@ -45,50 +51,33 @@ const Inicio = () => {
             justifyContent="space-evenly"
           >
             {/* graficos */}
-            <Grid item>
-              <div
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  backgroundColor: "rebeccapurple",
-                  borderRadius: "50%",
-                }}
-              ></div>
+            <Grid item sx={{ width: 200, height: 200, }}>
+              <Graph hecho={datos.pasos} hacer={datos.objetivoPasos-datos.pasos} />
+              <Typography component={"h2"} variant="h4">Pasos</Typography>
             </Grid>
-            <Grid item>
-              <div
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  backgroundColor: "rebeccapurple",
-                  borderRadius: "50%",
-                }}
-              ></div>
+            <Grid item sx={{ width: 200, height: 200, }}>
+              <Graph hecho={datos.calorías} hacer={datos.objetivoCalorías-datos.calorías} />
+              <Typography component={"h2"} variant="h4">Calorías</Typography>
             </Grid>
           </Grid>
-
           <Grid
             item
             container
-            sx={{ bgcolor: "white", width: "70%" }}
+            sx={{ bgcolor: "white", width: "70%", boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)", p: 1 }}
             direction="column"
             alignItems={"center"}
+            justifyContent="space-evenly"
+            spacing={3}
+            xs={12}
           >
-            <Grid item>
+            <Grid item xs={12}>
               <Typography variant="h4" component="h4">
                 Tus metas diarias
               </Typography>
             </Grid>
-
-            <Grid item container>
+            <Grid item direction={"row"} container xs={12}>
               {dias.map((dia, idx) => (
-                <Grid
-                  item
-                  container
-                  direction="column"
-                  key={idx}
-                  alignItems={"center"}
-                >
+                <Grid container direction="column" key={idx} alignItems={"center"} xs={12} sm={1.6}>
                   <Grid item>✔</Grid>
                   <Grid item>{dia}</Grid>
                 </Grid>
@@ -98,7 +87,14 @@ const Inicio = () => {
         </Grid>
         {/* columna 2 */}
         <Grid item xs={6} maxWidth="lg" minHeight="80vh">
-          <Typography>Titulo</Typography>
+          <Grid container xs={12}>
+            <Grid item xs={12}>
+              <Typography component={"h2"} variant="h3" align="center" sx={{ width: "100%" }}>Centro de Actividades</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Button fullWidth >Agregar actividad</Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>
