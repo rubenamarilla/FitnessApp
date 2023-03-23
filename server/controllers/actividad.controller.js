@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 
-const Actividad = require('../models/Actividad.model')
+const Actividad = require('../models/actividad.model')
 
 
 //

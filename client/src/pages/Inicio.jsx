@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid, Typography } from "@mui/material";
 import Graph from "../components/Graph";
+import { useNavigate } from "react-router-dom";
 
 const Inicio = () => {
+  const navigate = useNavigate()
   const dias = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sáb", "Dom"];
   const [datos, setDatos] = useState({
     pasos: 1200,
@@ -53,11 +55,11 @@ const Inicio = () => {
             {/* graficos */}
             <Grid item sx={{ width: 200, height: 200, }}>
               <Graph hecho={datos.pasos} hacer={datos.objetivoPasos-datos.pasos} />
-              <Typography component={"h2"} variant="h4">Pasos</Typography>
+              <Typography align="center" component={"h2"} variant="h4">Pasos</Typography>
             </Grid>
-            <Grid item sx={{ width: 200, height: 200, }}>
+            <Grid item sx={{ width: 200, height: 200 }}>
               <Graph hecho={datos.calorías} hacer={datos.objetivoCalorías-datos.calorías} />
-              <Typography component={"h2"} variant="h4">Calorías</Typography>
+              <Typography align="center" component={"h2"} variant="h4">Calorías</Typography>
             </Grid>
           </Grid>
           <Grid
@@ -92,7 +94,7 @@ const Inicio = () => {
               <Typography component={"h2"} variant="h3" align="center" sx={{ width: "100%" }}>Centro de Actividades</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth >Registrar actividad</Button>
+              <Button fullWidth onClick={()=>navigate("/inicio/actividad")}>Registrar actividad</Button>
             </Grid>
           </Grid>
         </Grid>
