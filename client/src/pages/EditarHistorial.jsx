@@ -13,7 +13,7 @@ const EditarHistorial = () => {
     });
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/test/' + id)
+        axios.get('http://127.0.0.1:8000/items' + id)
             .then(response => {
                 setFormData(response.data);
             })
@@ -32,7 +32,7 @@ const EditarHistorial = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData);
-        axios.put('http://localhost:8000/api/test/' + id, formData)
+        axios.put('http://127.0.0.1:8000/' + id, formData)
     }
 
     return (

@@ -5,6 +5,7 @@ import axios from "axios";
 const Actividad = () => {
     const [pasos, setPasos] = useState(0);
     const [calorias, setCalorias] = useState(0);
+    const token= localStorage.getItem("token")
 
     const handlePasosChange = (event) => {
         setPasos(event.target.value);
@@ -16,11 +17,19 @@ const Actividad = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const Actividad = {
+        const now = new Date();
+        const actividad = {
             pasos: pasos,
             calorias: calorias,
+            fecha: now.toLocaleDateString(),
+            hora: now.toLocaleTimeString(),
         };
-        axios.post("http://localhost:8000/api/test", Actividad)
+        console.log(actividad);
+        axios.post("http://localhost:8000/api/actividad/createactividad", actividad, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
             .then((response) => {
                 console.log(response.data);
             })

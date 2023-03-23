@@ -5,6 +5,7 @@ const {
     setItem, 
     updateItem, 
     deleteItem,
+
 } = require('../controllers/fitness.controller')
 
 //autenticacion
@@ -15,5 +16,6 @@ router.get('/items', protect,getItems)
 router.post('/create', protect, setItem)
 router.put('/:id', protect, updateItem)
 router.delete('/:id', protect, deleteItem)
+
 
 module.exports = router

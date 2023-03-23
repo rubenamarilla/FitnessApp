@@ -29,6 +29,9 @@ const setItem = asyncHandler(async (req, res) => {
   res.status(200).json(item)
 })
 
+
+
+
 // Modificamos Item
 // ruta   PUT /api/fitness/:id
 // acceso  Private
@@ -87,9 +90,12 @@ const deleteItem = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id })
 })
 
+
+
 module.exports = {
   getItems,
   setItem,
   updateItem,
   deleteItem,
+
 }

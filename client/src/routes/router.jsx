@@ -7,6 +7,8 @@ import NavHeader from "../layouts/NavHeader";
 import Inicio from "../pages/Inicio";
 import Historial from "../pages/Historial";
 import Perfil from "../pages/Perfil";
+import Actividad from "../pages/Actividad";
+import EditarHistorial from "../pages/EditarHistorial";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,16 @@ const router = createBrowserRouter([
         element: <Perfil />,
         errorElement: <ErrorPage />,
       },
+      {
+        path: "/inicio/actividad",
+        element: <Actividad />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/inicio/:id/edit",
+        element: <EditarHistorial />,
+        errorElement: <ErrorPage />,
+      }
     ],
   },
 ]);

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { CssBaseline, Grid, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios'
 
 const Historial = () => {
     const [data, setData] = useState(null);
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const historial = [
         {
@@ -48,7 +48,7 @@ const Historial = () => {
 
 
     const getItem = () => {
-        axios.get('http://localhost:8000/api/test')
+        axios.get('http://127.0.0.1:8000/items')
             .then(response => {
                 setData(response.data);
             })
@@ -63,7 +63,7 @@ const Historial = () => {
     console.log(data);
 
     const eliminar = (id) => {
-        axios.delete(`http://localhost:8000/api/test/${id}`)
+        axios.delete(`http://127.0.0.1:8000/${id}`)
             .then(response => {
                 setData(data.filter(usuario => usuario._id !== id));
             })
