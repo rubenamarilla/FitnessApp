@@ -92,7 +92,7 @@ const Inicio = () => {
               <Typography component={"h2"} variant="h3" align="center" sx={{ width: "100%" }}>Centro de Actividades</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth >Agregar actividad</Button>
+              <Button fullWidth >Registrar actividad</Button>
             </Grid>
           </Grid>
         </Grid>
