@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid, Typography } from "@mui/material";
 import Graph from "../components/Graph";
@@ -13,7 +13,9 @@ const Inicio = () => {
     calorías: 500,
     objetivoCalorías: 1200
   })
-  
+  useEffect(() => {
+    console.log("llamada a la api para los datos")
+  }, [])
 
   return (
     <>
@@ -41,7 +43,7 @@ const Inicio = () => {
           sx={{
             bgcolor: "#e8eaf6",
             borderRadius: "3px",
-            boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
+            boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"
           }}
         >
           <Grid
@@ -54,11 +56,11 @@ const Inicio = () => {
           >
             {/* graficos */}
             <Grid item sx={{ width: 200, height: 200, }}>
-              <Graph hecho={datos.pasos} hacer={datos.objetivoPasos-datos.pasos} />
+              <Graph hecho={datos.pasos} hacer={datos.objetivoPasos - datos.pasos} />
               <Typography align="center" component={"h2"} variant="h4">Pasos</Typography>
             </Grid>
             <Grid item sx={{ width: 200, height: 200 }}>
-              <Graph hecho={datos.calorías} hacer={datos.objetivoCalorías-datos.calorías} />
+              <Graph hecho={datos.calorías} hacer={datos.objetivoCalorías - datos.calorías} />
               <Typography align="center" component={"h2"} variant="h4">Calorías</Typography>
             </Grid>
           </Grid>
@@ -94,7 +96,7 @@ const Inicio = () => {
               <Typography component={"h2"} variant="h3" align="center" sx={{ width: "100%" }}>Centro de Actividades</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth onClick={()=>navigate("/inicio/actividad")}>Registrar actividad</Button>
+              <Button fullWidth onClick={() => navigate("/inicio/actividad")}>Registrar actividad</Button>
             </Grid>
           </Grid>
         </Grid>
