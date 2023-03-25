@@ -11,39 +11,24 @@ const Historial = () => {
         {
             pasos: 5202,
             calorías: 231,
+            actividad: "correr",
             fecha: "12/01/23",
             hora: "12:36",
         },
         {
             pasos: 5202,
             calorías: 231,
+            actividad: "correr",
             fecha: "12/01/23",
             hora: "12:36",
         },
         {
             pasos: 5202,
             calorías: 231,
+            actividad: "correr",
             fecha: "12/01/23",
             hora: "12:36",
-        },
-        {
-            pasos: 5202,
-            calorías: 231,
-            fecha: "12/01/23",
-            hora: "12:36",
-        },
-        {
-            pasos: 5202,
-            calorías: 231,
-            fecha: "12/01/23",
-            hora: "12:36",
-        },
-        {
-            pasos: 5202,
-            calorías: 231,
-            fecha: "12/01/23",
-            hora: "12:36",
-        },
+        }      
     ];
 
 
