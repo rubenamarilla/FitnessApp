@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Avatar, Box, Button, Container, createTheme, CssBaseline, Grid, Link, TextField, ThemeProvider, Typography } from "@mui/material"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../auth/context/AuthContext';
 
 function Copyright(props) {
   return (
@@ -17,6 +20,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 const RegisterPage = () => {
+  const navigate= useNavigate();
+  const { login } = useContext(AuthContext)
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -38,21 +43,30 @@ const RegisterPage = () => {
       setErrorMessage('');
     }
   }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrorMessage("")
-    // const data = new FormData(event.currentTarget);
-    // const datos = {
-    //   firstName: data.get("firstName"),
-    //   lastName: data.get("lastName"),
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    //   confirmPassword: data.get('confirmPassword'),
-    // }
-    setFormData(formData);
-    
+    const { firstName, lastName, email, password } = formData;
+  
+    const data = {
+      firstName,
+      lastName,
+      email,
+      password,
+      
+    };
+  
     console.log(formData)
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/users/register', data);
+      console.log(response.data);
+      const { token } = response.data;
+      login(token)
+      navigate("/inicio")
+      
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Credenciales incorrectas');
+    }
   };
 
   return (
