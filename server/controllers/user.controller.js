@@ -3,13 +3,14 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/user.model')
 
+
 //  Registrar nuevo  usuario
 //ruta POST/ api/users/register
 // acceso Public
 const registerUser = asyncHandler(async (req, res) => {
-    const {usuario, email, password} = req.body
+    const {firstName, lastName, email, password} = req.body
 
-    if(!usuario || !email || !password ){
+    if(!firstName||!lastName || !email || !password ){
         res.status(400)
         throw new Error('Por favor complete los campos')
     }
@@ -28,7 +29,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
     //creamos el usuario
     const user = await User.create({
-        usuario,
+        firstName,
+        lastName,
         email,
         password: hashedPassword
     })
@@ -36,7 +38,8 @@ const registerUser = asyncHandler(async (req, res) => {
     if(user) {
         res.status(201).json({
             _id: user.id,
-            usuario: user.usuario,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             token: generateToken(user.id)
         })
@@ -45,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('Dato del usuario invalido')
     }
     // res.json({ message: 'Register User'})
-})
+});
 
 
 //  Autenticacion de usuario

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Avatar, Box, Button, Container, createTheme, CssBaseline, Link, TextField, ThemeProvider, Typography } from "@mui/material"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { AuthContext } from '../auth/context/AuthContext';
 
 function Copyright(props) {
   return (
@@ -19,7 +20,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 const LoginPage = () => {
+  const { login } = useContext(AuthContext)
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -43,8 +46,8 @@ const LoginPage = () => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/users/login', formData);
       const { token } = response.data;
-      localStorage.setItem('token', token);
-    
+      //localStorage.setItem('token', token);
+      login(token)
       navigate("/inicio")
     } catch (error) {
       console.error(error);

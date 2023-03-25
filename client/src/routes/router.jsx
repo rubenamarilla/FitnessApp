@@ -10,6 +10,8 @@ import Perfil from "../pages/Perfil";
 import Actividad from "../pages/Actividad";
 import EditarHistorial from "../pages/EditarHistorial";
 import EditarPerfil from "../pages/EditarPerfil";
+import { PrivateRouter } from "./PrivateRouter";
+import { PublicRouter } from "./PublicRouter";
 
 const router = createBrowserRouter([
   {
@@ -19,17 +21,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/registro",
-    element: <RegisterPage />,
+    element: <PublicRouter><RegisterPage /></PublicRouter>,
     errorElement: <ErrorPage />,
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <PublicRouter><LoginPage /></PublicRouter>,
     errorElement: <ErrorPage />,
   },
   {
     path: "/inicio/",
-    element: <NavHeader />,
+    element: <PrivateRouter><NavHeader /></PrivateRouter> ,
     errorElement: <ErrorPage />,
     children: [
       {
