@@ -7,7 +7,9 @@ const EditarPerfil = () => {
     foto: "direccion",
     email: "lucia@example.com",
     objetivoPasos: 8000,
-    objetivoCalorías: 600
+    objetivoCalorías: 600,
+    peso: 72,
+    altura: 176
   })
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +32,7 @@ const EditarPerfil = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                InputProps={{ type: "number" }}
                 required
                 id="objetivoPasos"
                 name="objetivoPasos"
@@ -41,12 +44,37 @@ const EditarPerfil = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                InputProps={{ type: "number" }}
                 required
                 id="objetivoCalorías"
                 name="objetivoCalorías"
                 label="Objetivo calorías"
                 fullWidth
                 value={usuario.objetivoCalorías}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                InputProps={{ type: "number" }}
+                required
+                id="peso"
+                name="peso"
+                label="Peso"
+                fullWidth
+                value={usuario.peso}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                InputProps={{ type: "number" }}
+                required
+                id="altura"
+                name="altura"
+                label="Altura"
+                fullWidth
+                value={usuario.altura}
                 onChange={handleChange}
               />
             </Grid>

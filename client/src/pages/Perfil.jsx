@@ -9,7 +9,9 @@ const Perfil = () => {
     foto: "direccion",
     email: "lucia@example.com",
     objetivoPasos: 8000,
-    objetivoCalorías: 600
+    objetivoCalorías: 600,
+    peso: 72,
+    altura: 176
   }
 
   return (
@@ -19,6 +21,10 @@ const Perfil = () => {
         <Avatar alt={usuario.nombre} src={usuario.foto} sx={{ width: 120, height: 120 }} />
         <Typography component={"h3"} variant="h4">{usuario.usuario}</Typography>
         <Typography component={"h5"} variant="body1" sx={{mb: 2}}>{usuario.email}</Typography>
+        <Typography component={"h3"} variant="h6">Peso</Typography>
+        <Typography component={"h5"} variant="body1" sx={{mb: 2}}>{usuario.peso} kg</Typography>
+        <Typography component={"h3"} variant="h6">Altura</Typography>
+        <Typography component={"h5"} variant="body1" sx={{mb: 2}}>{usuario.altura} cm</Typography>
         <Typography component={"h3"} variant="h6">Objetivo en pasos</Typography>
         <Typography component={"h5"} variant="body1" sx={{mb: 2}}>{usuario.objetivoPasos}</Typography>
         <Typography component={"h3"} variant="h6">Objetivo en calorías</Typography>
