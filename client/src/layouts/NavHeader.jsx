@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import SpaIcon from "@mui/icons-material/Spa";
 import { CssBaseline } from "@mui/material";
+import { AuthContext } from "../auth/context/AuthContext";
 
 const pages = ["Inicio", "Historial", "Actividades"];
 const settings = ["Perfil", "Cerrar Sesión"];
@@ -21,6 +22,7 @@ const settings = ["Perfil", "Cerrar Sesión"];
 // estarán los botones inicio, historial y perfil
 const NavHeader = () => {
   const Navigate = useNavigate();
+  const { logout } = useContext(AuthContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -47,6 +49,7 @@ const NavHeader = () => {
     if (setting === "Perfil") {
       Navigate("/inicio/perfil");
     } else if (setting === "Cerrar Sesión") {
+      logout();
       Navigate("/")
     }
   };
