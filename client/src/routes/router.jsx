@@ -9,6 +9,7 @@ import Historial from "../pages/Historial";
 import Perfil from "../pages/Perfil";
 import Actividad from "../pages/Actividad";
 import EditarHistorial from "../pages/EditarHistorial";
+import EditarPerfil from "../pages/EditarPerfil";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
       {
         path: "/inicio/perfil",
         element: <Perfil />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/inicio/perfil/editar",
+        element: <EditarPerfil />,
         errorElement: <ErrorPage />,
       },
       {
