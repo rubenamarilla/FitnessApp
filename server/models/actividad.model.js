@@ -14,6 +14,10 @@ const ActividadSchema = mongoose.Schema({
         type: String,
         required: [true]
     },
+    actividad: {
+        type: String,
+        required: [true]
+    },
     calorias: { type: Number,
         required: [true, 'Por favor ingrese calorias']}, 
     
