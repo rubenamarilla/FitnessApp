@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/inicio/:id/edit",
+        path: "/inicio/historial/edit/:id",
         element: <EditarHistorial />,
         errorElement: <ErrorPage />,
       }

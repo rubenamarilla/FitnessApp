@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { TextField, Button, Grid, CssBaseline, Container, MenuItem, Select, InputLabel } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
 const Actividad = () => {
+  const navigate = useNavigate()
   const [datos, setDatos] = useState({
-    pasos: 0,
-    calorias: 0,
+    pasos: undefined,
+    calorias: undefined,
     actividad: "caminar"
   });
   const token = localStorage.getItem("token")
@@ -14,6 +16,10 @@ const Actividad = () => {
     const { name, value } = event.target;
     setDatos({ ...datos, [name]: value });
   };
+
+  const handleSelect = (value) => {
+    setDatos({ ...datos, actividad: value })
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,15 +31,13 @@ const Actividad = () => {
       fecha: now.toLocaleDateString(),
       hora: now.toLocaleTimeString(),
     };
-    console.log(actividad);
-    console.log(token)
     axios.post("http://127.0.0.1:8000/api/fitness/create", actividad, {
       headers: {
         Authorization: `Bearer: ${token}`
       }
     })
       .then((response) => {
-        console.log(response.data);
+        navigate("/inicio/historial")
       })
       .catch((error) => {
         window.alert(error)
@@ -76,7 +80,7 @@ const Actividad = () => {
               labelId="actividad-label"
               fullWidth
               value={datos.actividad}
-              onChange={handleChange}
+              onChange={(e) => handleSelect(e.target.value)}
             >
               <MenuItem value="caminar">Caminar</MenuItem>
               <MenuItem value="correr">Correr</MenuItem>

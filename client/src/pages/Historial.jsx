@@ -1,61 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { CssBaseline, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Button, CssBaseline, Grid, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 const Historial = () => {
-    const [data, setData] = useState(null);
-    //const navigate = useNavigate();
+    const token = localStorage.getItem("token")
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
 
-    const historial = [
-        {
-            pasos: 5202,
-            calorías: 231,
-            actividad: "correr",
-            fecha: "12/01/23",
-            hora: "12:36",
-        },
-        {
-            pasos: 5202,
-            calorías: 231,
-            actividad: "correr",
-            fecha: "12/01/23",
-            hora: "12:36",
-        },
-        {
-            pasos: 5202,
-            calorías: 231,
-            actividad: "correr",
-            fecha: "12/01/23",
-            hora: "12:36",
-        }      
-    ];
-
-
-    const getItem = () => {
-        axios.get('http://127.0.0.1:8000/items')
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/fitness/items', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
                 setData(response.data);
             })
             .catch(error => {
+                window.alert(error)
                 console.error(error);
             });
-    }
-
-    useEffect(() => {
-        getItem();
-    }, []);
-    console.log(data);
-
-    const eliminar = (id) => {
-        axios.delete(`http://127.0.0.1:8000/${id}`)
-            .then(response => {
-                setData(data.filter(usuario => usuario._id !== id));
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
+    }, [token]);
 
     return (
         <>
@@ -66,17 +32,17 @@ const Historial = () => {
                 minHeight="md"
 
                 direction="column"
-                sx={{ bgcolor: "#f6f6f6", pt: "1rem", paddingBottom: "1rem", padding: "1rem" }}
+                sx={{ pt: "1rem", paddingBottom: "1rem", padding: "1rem" }}
             >
-                {historial.map((usuario, idx) => (
+                {data.map((usuario, idx) => (
                     <Grid
                         container
                         item
                         alignItems={"center"}
                         xs={12}
-                        sx={{ bgcolor: "white", marginBottom: "1rem", padding: "0.5rem", boxShadow: "-2px 3px 8px -5px black" }}
+                        sx={{ bgcolor: "white", marginBottom: "1rem", padding: 3, boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)" }}
                     >
-                        <Grid item xs={4}>
+                        <Grid item xs={3}>
                             <Typography component="h5" variant="h5">
                                 Pasos
                             </Typography>
@@ -84,25 +50,34 @@ const Historial = () => {
                                 {usuario.pasos}
                             </Typography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={3}>
                             <Typography component="h5" variant="h5">
                                 Calorías
                             </Typography>
                             <Typography component="h3" variant="h3">
-                                {usuario.calorías}
+                                {usuario.calorias}
                             </Typography>
                         </Grid>
-                        <Grid item xs={4}>
-                            <Typography component="h3" variant="h5">
+                        <Grid item xs={3}>
+                            <Typography component="h5" variant="h5">
+                                Actividad
+                            </Typography>
+                            <Typography component="h3" variant="h4">
+                                {usuario.actividad}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography component="h3" variant="h6">
                                 {usuario.fecha}
                             </Typography>
-                            <Typography component="h3" variant="h5">
+                            <Typography component="h3" variant="h6">
                                 {usuario.hora}
                             </Typography>
+                            <Button color="primary" variant="contained" onClick={() => navigate(`/inicio/historial/edit/${usuario._id}`)}>
+                                Editar
+                            </Button>
                         </Grid>
-                        <Link to={`/inicio/${usuario._id}/edit`} className="text2" >Editar</Link>
 
-                        <button onClick={() => eliminar(usuario._id)} className="btn"  >Eliminar</button>
                     </Grid>
                 ))}
             </Grid>

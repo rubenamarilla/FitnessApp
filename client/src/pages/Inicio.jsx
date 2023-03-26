@@ -14,7 +14,12 @@ const Inicio = () => {
     objetivoCalorías: 1200
   })
   useEffect(() => {
-    console.log("llamada a la api para los datos")
+    setDatos({
+      pasos: 1200,
+      objetivoPasos: 8000,
+      calorías: 500,
+      objetivoCalorías: 1200
+    })
   }, [])
 
   return (
