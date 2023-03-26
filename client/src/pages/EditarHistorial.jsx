@@ -1,77 +1,133 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { Container } from '@mui/system';
+import { Button, CssBaseline, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 const EditarHistorial = () => {
+  const token = localStorage.getItem("token")
+  const { id } = useParams();
+  const navigate = useNavigate()
+  const [datos, setDatos] = useState({
+    pasos: 0,
+    calorias: 0,
+    actividad: ""
+  });
 
-    const { id } = useParams();
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/fitness/item/${id}`, {
+      headers: {
+        Authorization: `Bearer: ${token}`
+      }
+    }).then(response => {
+      setDatos(response.data)
+    })
+  }, [id, token])
 
-    const [formData, setFormData] = useState({
-        pasos: '',
-        calorías: ''
-    });
+  const handleSelect = (value) => {
+    setDatos({ ...datos, actividad: value })
+  }
 
-    useEffect(() => {
-        axios.get('http://127.0.0.1:8000/items' + id)
-            .then(response => {
-                setFormData(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, [id]);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setDatos({ ...datos, [name]: value });
+  };
 
-    const handleChange = (event) => {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value,
-        });
+  const handleDelete = () => {
+    axios.delete(`http://127.0.0.1:8000/api/fitness/${id}`, {
+      headers: {
+        Authorization: `Bearer: ${token}`
+      }
+    })
+      .then(response => {
+        navigate("/inicio/historial")
+      })
+      .catch(error => {
+        window.alert(error)
+      });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const actividad = {
+      pasos: parseInt(datos.pasos),
+      calorias: parseInt(datos.calorias),
+      actividad: datos.actividad,
+      fecha: datos.fecha,
+      hora: datos.hora,
     };
+    axios.put(`http://127.0.0.1:8000/api/fitness/${id}`, actividad, {
+      headers: {
+        Authorization: `Bearer: ${token}`
+      }
+    })
+      .then((response) => {
+        console.log(response.data);
+        navigate("/inicio/historial")
+      })
+      .catch((error) => {
+        window.alert(error)
+        console.log(error)
+      });
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(formData);
-        axios.put('http://127.0.0.1:8000/' + id, formData)
-    }
-
-    return (
-
-        <>
-
-            <div className="container mt-5">
-                <h1>Historial</h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="pasos">Pasos:</label>
-                        <input
-                            type="number"
-                            id="pasos"
-                            name="pasos"
-                            value={formData.pasos}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="calorías">Calorias:</label>
-                        <input
-                            type="number"
-                            id="calorías"
-                            name="calorías"
-                            value={formData.calorías}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    
-                    <button className='btn'>Editar</button>
-
-                </form>
-                <Outlet />
-            </div>
-        </>
-    )
+  return (
+    <Container maxWidth="xs">
+      <CssBaseline />
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="pasos"
+              name="pasos"
+              label="Pasos realizados"
+              fullWidth
+              value={datos.pasos}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="calorias"
+              name="calorias"
+              label="Calorías quemadas"
+              fullWidth
+              value={datos.calorias}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel id="actividad-label">Actividad</InputLabel>
+            <Select
+              required
+              id="actividad"
+              labelId="actividad-label"
+              fullWidth
+              value={datos.actividad}
+              onChange={(e) => handleSelect(e.target.value)}
+            >
+              <MenuItem value="caminar">Caminar</MenuItem>
+              <MenuItem value="correr">Correr</MenuItem>
+              <MenuItem value="trotar">Trotar</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item xs={12} sm={6} >
+            <Button variant="contained" color="primary" type="submit" fullWidth>
+              Actualizar
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} >
+            <Button variant="contained" color="error" fullWidth onClick={handleDelete}>
+              Eliminar actividad
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+    </Container>
+  )
 }
 
 export default EditarHistorial

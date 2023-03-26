@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const {
-    setActividad,
+    setDatos,
     setSaludo,
-} = require('../controllers/actividad.controller')
+} = require('../controllers/datos.controller')
 
 //autenticacion
 const {protect} = require('../middleware/authMiddleware')
 
 //rutas
-router.post('/createactividad', protect, setActividad)
-router.get('/createactividad',  protect, setSaludo)
+router.post('/createdatos', protect, setDatos)
+router.get('/saludo',  protect, setSaludo)
 
 module.exports = router

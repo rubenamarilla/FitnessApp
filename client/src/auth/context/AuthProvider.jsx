@@ -6,7 +6,7 @@ import { authReducer } from './authReducer';
 
 
 const init = () => {
-    const user = JSON.parse(localStorage.getItem('token'))
+    const user = localStorage.getItem('token')
     return {
         logged: !!user,
         user: user,
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
             type: types.login,
             payload: user
         }
-        localStorage.setItem('token', JSON.stringify(token));
+        localStorage.setItem('token', token);
         // localStorage.setItem("token", token);
         dispatch(action);
     }

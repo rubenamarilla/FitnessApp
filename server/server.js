@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false}))
 //llamamos a las rutas
 app.use('/api/fitness', require('./routes/fitness.routes'))
 app.use('/api/users', require('./routes/user.routes'))
-app.use('/api/actividad', require('./routes/actividad.routes'))
+app.use('/api/datos', require('./routes/datos.routes'))
 
 app.use(errorHandler)
 

@@ -16,7 +16,7 @@ import SpaIcon from "@mui/icons-material/Spa";
 import { CssBaseline } from "@mui/material";
 import { AuthContext } from "../auth/context/AuthContext";
 
-const pages = ["Inicio", "Historial", "Actividades"];
+const pages = ["Inicio", "Historial"];
 const settings = ["Perfil", "Cerrar Sesión"];
 
 // estarán los botones inicio, historial y perfil
@@ -39,10 +39,8 @@ const NavHeader = () => {
       Navigate("/inicio");
     } else if (page === "Historial") {
       Navigate("/inicio/historial")
-    }else if (page === "Actividades") {
-      Navigate("/inicio/actividad");
-    }
-  };
+    };
+  }
 
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
@@ -56,7 +54,7 @@ const NavHeader = () => {
   return (
     <>
       <CssBaseline />
-      <AppBar position="static" sx={{mb: "1rem"}}>
+      <AppBar position="static" sx={{ mb: "1rem" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <SpaIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -168,7 +166,7 @@ const NavHeader = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
+                  <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
