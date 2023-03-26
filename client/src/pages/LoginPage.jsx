@@ -45,7 +45,8 @@ const LoginPage = () => {
     console.log(formData)
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/users/login', formData);
-      const { token } = response.data;
+      const token = response.data.token;
+      console.log(token)
       //localStorage.setItem('token', token);
       login(token)
       navigate("/inicio")

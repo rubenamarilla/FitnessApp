@@ -4,8 +4,8 @@ import axios from "axios";
 
 const Actividad = () => {
   const [datos, setDatos] = useState({
-    pasos: undefined,
-    calorias: undefined,
+    pasos: 0,
+    calorias: 0,
     actividad: "caminar"
   });
   const token = localStorage.getItem("token")
@@ -19,16 +19,17 @@ const Actividad = () => {
     event.preventDefault();
     const now = new Date();
     const actividad = {
-      pasos: datos.pasos,
-      calorias: datos.calorias,
+      pasos: parseInt(datos.pasos),
+      calorias: parseInt(datos.calorias),
       actividad: datos.actividad,
       fecha: now.toLocaleDateString(),
       hora: now.toLocaleTimeString(),
     };
     console.log(actividad);
-    axios.post("http://localhost:8000/api/actividad/createactividad", actividad, {
+    console.log(token)
+    axios.post("http://127.0.0.1:8000/api/fitness/create", actividad, {
       headers: {
-        authorization: `Bearer ${token}`
+        Authorization: `Bearer: ${token}`
       }
     })
       .then((response) => {
@@ -47,7 +48,6 @@ const Actividad = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              InputProps={{ type: "number" }}
               required
               id="pasos"
               name="pasos"
@@ -59,7 +59,6 @@ const Actividad = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              InputProps={{ type: "number" }}
               required
               id="calorias"
               name="calorias"

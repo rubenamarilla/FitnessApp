@@ -19,11 +19,11 @@ const setItem = asyncHandler(async (req, res) => {
  
   const item = await Fitness.create({
     user: req.user.id,
-    peso: req.body.peso,
-    calorias: req.body.calorias,
-    objetivo: req.body.objetivo,
-    altura: req.body.altura,
     pasos: req.body.pasos,
+    calorias: req.body.calorias,
+    actividad: req.body.actividad,
+    hora: req.body.hora,
+    fecha: req.body.fecha,
   })
 
   res.status(200).json(item)
