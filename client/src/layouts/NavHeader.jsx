@@ -1,25 +1,13 @@
+import { AppBar, Avatar, Box, Button, Container, CssBaseline, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SpaIcon from "@mui/icons-material/Spa";
 import React, { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import SpaIcon from "@mui/icons-material/Spa";
-import { CssBaseline } from "@mui/material";
 import { AuthContext } from "../auth/context/AuthContext";
 
 const pages = ["Inicio", "Historial"];
 const settings = ["Perfil", "Cerrar Sesión"];
 
-// estarán los botones inicio, historial y perfil
 const NavHeader = () => {
   const Navigate = useNavigate();
   const { logout } = useContext(AuthContext)
@@ -146,7 +134,7 @@ const NavHeader = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Opciones">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar  />
                 </IconButton>
               </Tooltip>
               <Menu

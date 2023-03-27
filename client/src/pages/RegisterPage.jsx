@@ -61,8 +61,7 @@ const RegisterPage = () => {
       console.log(response.data);
       const { token } = response.data;
       login(token)
-      navigate("/inicio")
-      
+      navigate("/registro/datos")
     } catch (error) {
       console.error(error);
       setErrorMessage('Credenciales incorrectas');
