@@ -9,7 +9,6 @@ const Inicio = () => {
   const id = localStorage.getItem("id")
   const token = localStorage.getItem("token")
   const navigate = useNavigate()
-  const dias = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sáb", "Dom"];
   const [pasos, setPasos] = useState(0)
   const [calorias, setCalorias] = useState(0)
   const [objetivoPasos, setObjetivoPasos] = useState(0)
@@ -94,42 +93,35 @@ const Inicio = () => {
             container
             direction={"row"}
             xs={12}
-            alignItems="flex-start"
+            alignItems="center"
             justifyContent="space-evenly"
           >
             {/* graficos */}
             <Grid item sx={{ width: 200, height: 200, }}>
-              <Graph hecho={pasos / 2} hacer={objetivoPasos - (pasos / 2)} />
+              <Graph hecho={pasos / 2} hacer={objetivoPasos - (pasos / 2) < 0 ? 0 : objetivoPasos - (pasos / 2) } />
               <Typography align="center" component={"h2"} variant="h4">Pasos</Typography>
+              <Typography align="center" component={"h2"} variant="h4">{pasos/2}</Typography>
             </Grid>
             <Grid item sx={{ width: 200, height: 200 }}>
-              <Graph hecho={calorias / 2} hacer={objetivoCalorias - (calorias / 2)} />
+              <Graph hecho={calorias / 2} hacer={objetivoCalorias - (calorias / 2) < 0 ? 0 : objetivoCalorias - (calorias / 2)} />
               <Typography align="center" component={"h2"} variant="h4">Calorías</Typography>
+              <Typography align="center" component={"h2"} variant="h4">{calorias/2}</Typography>
             </Grid>
           </Grid>
           <Grid
             item
             container
-            sx={{ bgcolor: "white", width: "70%", boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)", p: 1 }}
-            direction="column"
+            direction="row"
             alignItems={"center"}
             justifyContent="space-evenly"
             spacing={3}
             xs={12}
           >
-            <Grid item xs={12}>
-              <Typography variant="h4" component="h4">
-                Tus metas diarias
-              </Typography>
+            <Grid item xs={12} sm={6}>
             </Grid>
-            <Grid item direction={"row"} container xs={12}>
-              {dias.map((dia, idx) => (
-                <Grid container direction="column" key={idx} alignItems={"center"} xs={12} sm={1.6}>
-                  <Grid item>✔</Grid>
-                  <Grid item>{dia}</Grid>
-                </Grid>
-              ))}
+            <Grid item xs={12} sm={6}>
             </Grid>
+            
           </Grid>
         </Grid>
         {/* columna 2 */}
