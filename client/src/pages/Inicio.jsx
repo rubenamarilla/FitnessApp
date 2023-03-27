@@ -28,10 +28,7 @@ const Inicio = () => {
         for (let i = 0; i < response.data.length; i++) {
           if (response.data[i].fecha === now.toLocaleDateString()) {
             setPasos(prevPasos => prevPasos + response.data[i].pasos)
-            console.log("pasos", response.data[i].pasos, "array numero", i)
             setCalorias(prevCalorias => prevCalorias + response.data[i].calorias)
-          } else {
-            console.log("no coinciden", i)
           }
         }
       })
@@ -54,6 +51,7 @@ const Inicio = () => {
       window.alert(err)
       console.log(err)
     })
+    // eslint-disable-next-line
   }, [id, token])
 
   return (
@@ -95,11 +93,11 @@ const Inicio = () => {
           >
             {/* graficos */}
             <Grid item sx={{ width: 200, height: 200, }}>
-              <Graph hecho={pasos/2} hacer={objetivoPasos - (pasos/2)} />
+              <Graph hecho={pasos / 2} hacer={objetivoPasos - (pasos / 2)} />
               <Typography align="center" component={"h2"} variant="h4">Pasos</Typography>
             </Grid>
             <Grid item sx={{ width: 200, height: 200 }}>
-              <Graph hecho={calorias/2} hacer={objetivoCalorias - (calorias/2)} />
+              <Graph hecho={calorias / 2} hacer={objetivoCalorias - (calorias / 2)} />
               <Typography align="center" component={"h2"} variant="h4">Calorías</Typography>
             </Grid>
           </Grid>
