@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid, Typography } from "@mui/material";
 import Graph from "../components/Graph";
+import BtnDesplegable from "../components/BtnDesplegable";
 
 const Inicio = () => {
   const dias = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sáb", "Dom"];
@@ -93,11 +94,13 @@ const Inicio = () => {
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth >Agregar actividad</Button>
+              <Button ><BtnDesplegable></BtnDesplegable></Button>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
     </>
+    
   );
 };
 
