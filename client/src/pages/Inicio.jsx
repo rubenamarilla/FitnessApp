@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid, Typography } from "@mui/material";
 import Graph from "../components/Graph";
+import BtnDesplegable from "../components/BtnDesplegable";
 import { useNavigate } from "react-router-dom";
 
 const Inicio = () => {
@@ -102,7 +103,7 @@ const Inicio = () => {
             </Grid>
             <Grid item xs={12}>  
               <Button fullWidth onClick={() => navigate("/inicio/actividad")}>Registrar actividad</Button>
-              <Button ><BtnDesplegable></BtnDesplegable></Button>
+              <BtnDesplegable></BtnDesplegable>
             </Grid>
           </Grid>
         </Grid>
