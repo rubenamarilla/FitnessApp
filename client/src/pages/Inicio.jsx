@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid, Typography } from "@mui/material";
 import Graph from "../components/Graph";
-import BtnDesplegable from "../components/BtnDesplegable";
 import { useNavigate } from "react-router-dom";
 
 const Inicio = () => {
@@ -101,8 +100,9 @@ const Inicio = () => {
             <Grid item xs={12}>
               <Typography component={"h2"} variant="h3" align="center" sx={{ width: "100%" }}>Centro de Actividades</Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Button fullWidth >Agregar actividad</Button>
+            <Grid item xs={12}>  
+              <Button fullWidth onClick={() => navigate("/inicio/actividad")}>Registrar actividad</Button>
+              <Button ><BtnDesplegable></BtnDesplegable></Button>
             </Grid>
           </Grid>
         </Grid>
