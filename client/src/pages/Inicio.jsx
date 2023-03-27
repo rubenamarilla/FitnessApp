@@ -15,8 +15,14 @@ const Inicio = () => {
   const [objetivoPasos, setObjetivoPasos] = useState(0)
   const [objetivoCalorias, setObjetivoCalorias] = useState(0)
 
+  useEffect(() => {
+    if (!localStorage.getItem("id")) {
+      navigate("/registro/datos")
+    }
+  }, [navigate])
+
   const compareDate = () => {
-    const now = new Date();
+    const now = new Date();    
 
     axios.get('http://localhost:8000/api/fitness/items', {
       headers: {
