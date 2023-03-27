@@ -1,20 +1,52 @@
 import { Button, Container, CssBaseline, Grid, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const EditarPerfil = () => {
+  const navigate = useNavigate()
+  const id = localStorage.getItem("id")
+  const token = localStorage.getItem("token")
   const [usuario, setUsuario] = useState({
-    usuario: "Lucia López",
-    foto: "direccion",
-    email: "lucia@example.com",
-    objetivoPasos: 8000,
-    objetivoCalorías: 600,
-    peso: 72,
-    altura: 176
+    peso: 0,
+    altura: 0,
+    objetivoCalorias: 0,
+    objetivoPasos: 0
   })
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/datos/get/${id}`, {
+      headers: {
+        Authorization: `Bearer: ${token}`
+      }
+    }).then(response => {
+      setUsuario(response.data)
+    }).catch(err => {
+      console.log(err)
+      window.alert(err)
+    })
+  }, [id, token])
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const datos = {
+      peso: parseInt(usuario.peso),
+      altura: parseInt(usuario.altura),
+      objetivoPasos: parseInt(usuario.objetivoPasos),
+      objetivoCalorias: parseInt(usuario.objetivoCalorias)
+    }
     console.log(usuario)
+    axios.put(`http://localhost:8000/api/datos/edit/${id}`, datos, {
+      headers: {
+        Authorization: `Bearer: ${token}`
+      }
+    }).then(response=> {
+      navigate("/inicio/perfil")
+    }).catch(err => {
+      window.alert(err)
+    })
   }
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUsuario({ ...usuario, [name]: value });
@@ -46,11 +78,11 @@ const EditarPerfil = () => {
               <TextField
                 InputProps={{ type: "number" }}
                 required
-                id="objetivoCalorías"
-                name="objetivoCalorías"
+                id="objetivoCalorias"
+                name="objetivoCalorias"
                 label="Objetivo calorías"
                 fullWidth
-                value={usuario.objetivoCalorías}
+                value={usuario.objetivoCalorias}
                 onChange={handleChange}
               />
             </Grid>

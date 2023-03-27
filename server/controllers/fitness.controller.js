@@ -53,7 +53,7 @@ const getItem = asyncHandler(async (req, res) => {
 
   const getItem = await Fitness.findById(req.params.id)
 
-  res.status(200).json(item)
+  res.status(200).json(getItem)
 
 })
 
