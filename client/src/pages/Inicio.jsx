@@ -3,24 +3,58 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid, Typography } from "@mui/material";
 import Graph from "../components/Graph";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const Inicio = () => {
+  const id = localStorage.getItem("id")
+  const token = localStorage.getItem("token")
   const navigate = useNavigate()
   const dias = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sáb", "Dom"];
-  const [datos, setDatos] = useState({
-    pasos: 1200,
-    objetivoPasos: 8000,
-    calorías: 500,
-    objetivoCalorías: 1200
-  })
-  useEffect(() => {
-    setDatos({
-      pasos: 1200,
-      objetivoPasos: 8000,
-      calorías: 500,
-      objetivoCalorías: 1200
+  const [pasos, setPasos] = useState(0)
+  const [calorias, setCalorias] = useState(0)
+  const [objetivoPasos, setObjetivoPasos] = useState(0)
+  const [objetivoCalorias, setObjetivoCalorias] = useState(0)
+
+  const compareDate = () => {
+    const now = new Date();
+
+    axios.get('http://localhost:8000/api/fitness/items', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
-  }, [])
+      .then(response => {
+        console.log(response.data)
+        for (let i = 0; i < response.data.length; i++) {
+          if (response.data[i].fecha === now.toLocaleDateString()) {
+            setPasos(prevPasos => prevPasos + response.data[i].pasos)
+            console.log("pasos", response.data[i].pasos, "array numero", i)
+            setCalorias(prevCalorias => prevCalorias + response.data[i].calorias)
+          } else {
+            console.log("no coinciden", i)
+          }
+        }
+      })
+      .catch(error => {
+        window.alert(error)
+        console.error(error);
+      });
+  }
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/datos/get/${id}`, {
+      headers: {
+        Authorization: `Bearer: ${token}`
+      }
+    }).then(response => {
+      setObjetivoPasos(response.data.objetivoPasos)
+      setObjetivoCalorias(response.data.objetivoCalorias)
+      compareDate()
+    }).catch(err => {
+      window.alert(err)
+      console.log(err)
+    })
+  }, [id, token])
 
   return (
     <>
@@ -61,11 +95,11 @@ const Inicio = () => {
           >
             {/* graficos */}
             <Grid item sx={{ width: 200, height: 200, }}>
-              <Graph hecho={datos.pasos} hacer={datos.objetivoPasos - datos.pasos} />
+              <Graph hecho={pasos/2} hacer={objetivoPasos - (pasos/2)} />
               <Typography align="center" component={"h2"} variant="h4">Pasos</Typography>
             </Grid>
             <Grid item sx={{ width: 200, height: 200 }}>
-              <Graph hecho={datos.calorías} hacer={datos.objetivoCalorías - datos.calorías} />
+              <Graph hecho={calorias/2} hacer={objetivoCalorias - (calorias/2)} />
               <Typography align="center" component={"h2"} variant="h4">Calorías</Typography>
             </Grid>
           </Grid>
