@@ -9,6 +9,7 @@ import Historial from "../pages/Historial";
 import Perfil from "../pages/Perfil";
 import Actividad from "../pages/Actividad";
 import EditarHistorial from "../pages/EditarHistorial";
+import EditarPerfil from "../pages/EditarPerfil";
 import { PrivateRouter } from "./PrivateRouter";
 import { PublicRouter } from "./PublicRouter";
 
@@ -49,12 +50,17 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
+        path: "/inicio/perfil/editar",
+        element: <EditarPerfil />,
+        errorElement: <ErrorPage />,
+      },
+      {
         path: "/inicio/actividad",
         element: <Actividad />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/inicio/:id/edit",
+        path: "/inicio/historial/edit/:id",
         element: <EditarHistorial />,
         errorElement: <ErrorPage />,
       }
