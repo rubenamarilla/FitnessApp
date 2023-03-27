@@ -24,12 +24,11 @@ export const AuthProvider = ({ children }) => {
             payload: user
         }
         localStorage.setItem('token', token);
-        // localStorage.setItem("token", token);
         dispatch(action);
     }
 
     const logout = () => {
-        localStorage.removeItem('token');
+        localStorage.clear();
         const action = {
             type: types.logout
         };

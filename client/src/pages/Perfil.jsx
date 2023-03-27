@@ -9,7 +9,7 @@ const Perfil = () => {
     foto: "direccion",
     email: "lucia@example.com",
     objetivoPasos: 8000,
-    objetivoCalorías: 600,
+    objetivoCalorias: 600,
     peso: 72,
     altura: 176
   }
@@ -28,7 +28,7 @@ const Perfil = () => {
         <Typography component={"h3"} variant="h6">Objetivo en pasos</Typography>
         <Typography component={"h5"} variant="body1" sx={{mb: 2}}>{usuario.objetivoPasos}</Typography>
         <Typography component={"h3"} variant="h6">Objetivo en calorías</Typography>
-        <Typography component={"h5"} variant="body1">{usuario.objetivoPasos}</Typography>
+        <Typography component={"h5"} variant="body1">{usuario.objetivoCalorias}</Typography>
         <Container>
           <Grid container xs={12} spacing={2} justifyContent="center" alignItems={"center"} sx={{ m: "auto" }}>
             <Grid item xs={12} sm={6}>

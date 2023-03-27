@@ -15,13 +15,13 @@ const DatosSchema = mongoose.Schema({
         type: Number,
         required: [true, 'Por favor ingrese altura']
     },
+    objetivoPasos: {
+        type: Number,
+        required: [true, 'Por favor ingrese objetivo pasos']
+    },
     objetivoCalorias: {
         type: Number,
-        required: [true, 'Por favor ingrese sus pasos']
-    },
-    objetivoPasos: {
-        type: Object,
-        required: [true, 'Por favor ingrese objetivo']
+        required: [true, 'Por favor ingrese objetivo calorias']
     },
 },
     {

@@ -46,10 +46,16 @@ const LoginPage = () => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/users/login', formData);
       const token = response.data.token;
-      console.log(token)
-      //localStorage.setItem('token', token);
       login(token)
       navigate("/inicio")
+      axios.get("http://localhost:8000/api/datos/get", {
+        headers: {
+          Authorization: `Bearer: ${token}`
+        }
+      }).then(response => {
+        const idResponse = response.data[0]._id
+        localStorage.setItem("id", idResponse)
+      })
     } catch (error) {
       console.error(error);
       setErrorMessage('Credenciales incorrectas');
@@ -72,7 +78,7 @@ const LoginPage = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Iniciar sesión
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -80,7 +86,7 @@ const LoginPage = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -92,7 +98,7 @@ const LoginPage = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Contraseña"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -106,10 +112,10 @@ const LoginPage = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Iniciar sesión
             </Button>
             <Link href="/registro" variant="body2">
-              {"Don't have an account? Sign Up"}
+              {"No tiene una cuenta? Registrese"}
             </Link>
           </Box>
         </Box>

@@ -12,6 +12,7 @@ import EditarHistorial from "../pages/EditarHistorial";
 import EditarPerfil from "../pages/EditarPerfil";
 import { PrivateRouter } from "./PrivateRouter";
 import { PublicRouter } from "./PublicRouter";
+import Datos from "../pages/Datos";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
   {
     path: "/registro",
     element: <PublicRouter><RegisterPage /></PublicRouter>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/registro/datos",
+    element: <PrivateRouter><Datos /></PrivateRouter>,
     errorElement: <ErrorPage />,
   },
   {
