@@ -134,12 +134,12 @@ const Inicio = () => {
         </Grid>
         {/* columna 2 */}
         <Grid item xs={6} maxWidth="lg" minHeight="80vh">
-          <Grid container xs={12}>
+          <Grid container xs={12} spacing={2}>
             <Grid item xs={12}>
               <Typography component={"h2"} variant="h3" align="center" sx={{ width: "100%" }}>Centro de Actividades</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth onClick={() => navigate("/inicio/actividad")}>Registrar actividad</Button>
+              <Button variant="outlined" fullWidth onClick={() => navigate("/inicio/actividad")}>Registrar actividad</Button>
             </Grid>
           </Grid>
         </Grid>
