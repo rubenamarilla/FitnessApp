@@ -14,12 +14,6 @@ const Inicio = () => {
   const [objetivoPasos, setObjetivoPasos] = useState(0)
   const [objetivoCalorias, setObjetivoCalorias] = useState(0)
 
-  useEffect(() => {
-    if (!localStorage.getItem("id")) {
-      navigate("/registro/datos")
-    }
-  }, [navigate])
-
   const compareDate = () => {
     const now = new Date();    
 
@@ -58,6 +52,12 @@ const Inicio = () => {
     })
     // eslint-disable-next-line
   }, [id, token])
+
+  useEffect(() => {
+    if (!localStorage.getItem("id")) {
+      navigate("/registro/datos")
+    }
+  }, [navigate])
 
   return (
     <>
